@@ -16,12 +16,12 @@ th, td {
 </head>
 
 <body>
-<h1>Database test page</h1>
+<h1>Database test time table</h1>
 
 <p>Showing contents of papers table:</p>
 
 <table border="1">
-<tr><th>Paper code</th><th>Paper name</th></tr>
+<tr><th>Paper code</th><th>Day</th><th>Time</th></tr>
 
 <?php
  
@@ -34,10 +34,10 @@ $pdo_dsn = "mysql:host=$db_host;dbname=$db_name";
 
 $pdo = new PDO($pdo_dsn, $db_user, $db_passwd);
 
-$q = $pdo->query("SELECT * FROM papers");
+$q = $pdo->query("SELECT * FROM timetable");
 
 while($row = $q->fetch()){
-  echo "<tr><td>".$row["code"]."</td><td>".$row["name"]."</td></tr>\n";
+  echo "<tr><td>".$row["code"]."</td><td>".$row["day"]."</td><td>".$row["time"]."</td></tr>\n";
 }
 
 ?>
