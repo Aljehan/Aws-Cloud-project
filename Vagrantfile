@@ -15,9 +15,9 @@ Vagrant.configure("2") do |config|
   # your Vagrantfile will start up multiple interconnected VMs. I have
   # called this first VM "webserver" since I intend it to run the
   # webserver (unsurprisingly...).
-  config.vm.define "webserver" do |webserver|
+  config.vm.define "read-server" do |webserver|
     # These are options specific to the webserver VM
-    webserver.vm.hostname = "webserver"
+    webserver.vm.hostname = "read-server"
     
     # This type of port forwarding has been discussed elsewhere in
     # labs, but recall that it means that our host computer can
@@ -41,7 +41,7 @@ Vagrant.configure("2") do |config|
     # the webserver VM. Note that the file test-website.conf is copied
     # from this host to the VM through the shared folder mounted in
     # the VM at /vagrant
-    webserver.vm.provision "shell", inline: <<-SHELL
+    webserver.vm.provision "shell",path:"read-script.sh"
       apt-get update
       apt-get install -y apache2 php libapache2-mod-php php-mysql
             
