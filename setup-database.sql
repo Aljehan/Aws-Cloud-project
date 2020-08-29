@@ -1,8 +1,9 @@
-CREATE TABLE papers (
+CREATE TABLE timetable (
   code varchar(7),
-  name varchar(50) NOT NULL,
+  day varchar(20) NOT NULL,
+  time varchar(10) NOT NULL,
   PRIMARY KEY (code)
 );
 
-INSERT INTO papers VALUES ('COSC326','Effective Programming');
-INSERT INTO papers VALUES ('COSC349','Cloud Computing Architecture');
+INSERT INTO timetable VALUES ('COSC326','Wednesday','10:00 am');
+INSERT INTO timetable VALUES ('COSC349','Tuesday','1:00 pm);
