@@ -23,7 +23,7 @@ Vagrant.configure("2") do |config|
     # labs, but recall that it means that our host computer can
     # connect to IP address 127.0.0.1 port 8080, and that network
     # request will reach our webserver VM's port 80.
-    webserver.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+    webserver.vm.network "forwarded_port", guest: 80, host: 7080, host_ip: "127.0.0.1"
     
     # We set up a private network that our VMs will use to communicate
     # with each other. Note that I have manually specified an IP
@@ -41,20 +41,8 @@ Vagrant.configure("2") do |config|
     # the webserver VM. Note that the file test-website.conf is copied
     # from this host to the VM through the shared folder mounted in
     # the VM at /vagrant
-    webserver.vm.provision "shell",path:"read-script.sh"
-      apt-get update
-      apt-get install -y apache2 php libapache2-mod-php php-mysql
-            
-      # Change VM's webserver's configuration to use shared folder.
-      # (Look inside test-website.conf for specifics.)
-      cp /vagrant/test-website.conf /etc/apache2/sites-available/
-      # activate our website configuration ...
-      a2ensite test-website
-      # ... and disable the default website provided with Apache
-      a2dissite 000-default
-      # Reload the webserver configuration, to pick up our changes
-      service apache2 reload
-    SHELL
+    webserver.vm.provision "shell", path:"readweb.sh"
+
   end
 
   # Here is the section for defining the database server, which I have
