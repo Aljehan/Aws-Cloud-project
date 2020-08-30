@@ -9,7 +9,7 @@
     <header>
       <h1>Time Table</h1>
       <nav>
-    <div id ="menu"><a href="http://192.168.34.11"><h2>Enter Details</h2></a></div>
+    <div id ="menu"><a href="http://192.168.2.13"><h2>Enter Details</h2></a></div>
     <div id ="menu"><h2>Time table</h2></div>
       </nav>
     </header>
@@ -20,10 +20,10 @@
 
         <?php
           
-          $db_host   = '192.168.34.13';
+          $db_host   = '192.168.2.12';
           $db_name   = 'timetabledb';
           $db_user   = 'dbuser';
-          $db_passwd = 'mypassword';
+          $db_passwd = '123456';
 
           $pdo_dsn = "mysql:host=$db_host;dbname=$db_name";
 
