@@ -58,6 +58,20 @@ Vagrant.configure("2") do |config|
     dbserver.vm.provision "shell", path:"server.sh"
   end
 
+  config.vm.define "write-server" do |webserver|
+
+    webserver.vm.hostname = "write-server"
+
+    webserver.vm.network "forwarded_port", guest: 80, host: 7081, host_ip: "127.0.0.1"
+    
+    webserver.vm.network "private_network", ip: "192.168.2.13"
+
+    webserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
+
+    webserver.vm.provision "shell", path:"writeweb.sh"
+
+  end
+
 end
 
 #  LocalWords:  webserver xenial64
