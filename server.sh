@@ -2,7 +2,7 @@
 apt-get update
 
 # We create a shell variable MYSQL_PWD that contains the MySQL root password
-export MYSQL_PWD='12346'
+export MYSQL_PWD='123456'
 
 # If you run the `apt-get install mysql-server` command
 # manually, it will prompt you to enter a MySQL root
