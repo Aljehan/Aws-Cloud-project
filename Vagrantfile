@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :aws do |aws, override|
 
-  # security information from aws server
+    # security information from aws server
     aws.access_key_id = "ASIA4RJWHJFI4WHSFAUW"
     aws.secret_access_key = "FV18TMCOaknKwa/4kXnNVaJRrEKZfIAX0zZ26kg/"
     aws.session_token = "FwoGZXIvYXdzEFQaDAtHq8r+JrH60BDvsCLLAVDfXjANfkJjlCGFw1jblrJI8yNXq2ym1Z1WxCVOT4RczWEeBdJF5uFQGU7QzP2r0m0t/X/s2WFu/AoC6gXfAwpgI/wR5E/5Nze+z4wJZLvzhZcZpiFpiACFN4bGalzH1GzIzHIkFyUuu27jk4DrDPxvth+JiJQxEO2LievVnFsLnsKDOuEbja7YfIC7NkZKiYXm+UxLCMnXR4mMOu3JJ9p6nqztby453Hlnn2Q88VtC9PepBJviXeW/bf62sH+T2wx+hbFLTf5qDPE7KK+A1fsFMi3DLWXuA5Z0NA9D1NV9DWEn8w/8Lq19nDNd4f9yRT7C14AqjxNZAQ1PILR8nPg="
@@ -58,7 +58,7 @@ Vagrant.configure("2") do |config|
     override.ssh.username = "ubuntu"
   end
 
-    
+  
 
   # this is a form of configuration not seen earlier in our use of
   # Vagrant: it defines a particular named VM, which is necessary when
@@ -82,7 +82,27 @@ Vagrant.configure("2") do |config|
       service apache2 reload
     SHELL
 
-  end
-end
+    config.vm.define "write-server" do |webserver|
 
-#  LocalWords:  webserver xenial64
+      webserver.vm.hostname = "write-server"
+
+      webserver.vm.provision "shell",inline: <<-SHELL
+ apt-get update
+      apt-get install -y apache2 php libapache2-mod-php php-mysql
+      cp /vagrant/test-website2.conf /etc/apache2/sites-available/
+      chmod 400 /vagrant
+      chmod 400 /vagrant/write-www
+      chmod 400 /vagrant/write-www/index.php
+      a2ensite test-website2
+      a2dissite 000-default
+      service apache2 reload
+    SHELL
+
+  end
+
+    config.vm.provision "shell", inline: <<-SHELL
+     apt-get update
+     apt-get install -y apache2
+   SHELL
+
+end
