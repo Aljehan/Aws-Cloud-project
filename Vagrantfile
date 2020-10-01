@@ -20,6 +20,18 @@ Vagrant.configure("2") do |config|
     # The region for Amazon Educate is fixed.
     aws.region = "us-east-1"
 
+    # These options force synchronisation of files to the VM's
+    # /vagrant directory using rsync, rather than using trying to use
+    # SMB (which will not be available by default).
+    override.nfs.functional = false
+    override.vm.allowed_synced_folder_types = :rsync
+
+    # The keypair_name parameter tells Amazon which public key to use.
+    aws.keypair_name = "cosc349"
+    # The private_key_path is a file location in your macOS account
+    # (e.g., ~/.ssh/something).
+    override.ssh.private_key_path = "~/.ssh/cosc349.pem"
+
   # this is a form of configuration not seen earlier in our use of
   # Vagrant: it defines a particular named VM, which is necessary when
   # your Vagrantfile will start up multiple interconnected VMs. I have
