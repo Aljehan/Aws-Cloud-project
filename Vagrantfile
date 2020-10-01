@@ -44,6 +44,12 @@ Vagrant.configure("2") do |config|
     #ami code
     aws.ami = "ami-0f40c8f97004632f9"
 
+    #Vagrant connects using username "ubuntu".
+    override.ssh.username = "ubuntu"
+  end
+
+    
+
   # this is a form of configuration not seen earlier in our use of
   # Vagrant: it defines a particular named VM, which is necessary when
   # your Vagrantfile will start up multiple interconnected VMs. I have
