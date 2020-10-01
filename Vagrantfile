@@ -16,6 +16,10 @@ Vagrant.configure("2") do |config|
     aws.secret_access_key = "zjv5nDBfkOT6L5lq3sWxqdfTihk+4OzEm3sYdcfu"
     aws.session_token = "FwoGZXIvYXdzED4aDEm09bdy8EJk5daPZyLLAQL7rgrxZhGVJQxCyPjzGLhTJwW7ZmZ2J1rjWKpX8TVhf0X2Wf7i2AEuDfRtgdkI3uIYQNB2xvLpS3uxSJibYIgB5SYBimWqNNYNLaPGdC+A4n9PfETIbDfl07gqgBdHteXZ9+eNWRsbzN9F1kRu5YrbQiyt2a8lyalPNi05JVMB60MPJ306/xs/532QztmyURegHJtWIf6lLfOp6q8wjtJC+xO6tsLH5LVX2uFjO0OLyG2E3N2xXs3gt0/eO/SW/5gveE+scEHwqYzGKOWc0PsFMi3iX3ZyqaT36qzIVRm61KNTb2gNX9ywOZh08SVKoVo7iAG8K7SScXFmKkJBksw="
 
+
+    # The region for Amazon Educate is fixed.
+    aws.region = "us-east-1"
+
   # this is a form of configuration not seen earlier in our use of
   # Vagrant: it defines a particular named VM, which is necessary when
   # your Vagrantfile will start up multiple interconnected VMs. I have
