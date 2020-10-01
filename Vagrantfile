@@ -22,9 +22,9 @@ Vagrant.configure("2") do |config|
   config.vm.provider :aws do |aws, override|
 
   # security information from aws server
-    aws.access_key_id = "ASIA4RJWHJFI66RVUUV5"
-    aws.secret_access_key = "zjv5nDBfkOT6L5lq3sWxqdfTihk+4OzEm3sYdcfu"
-    aws.session_token = "FwoGZXIvYXdzED4aDEm09bdy8EJk5daPZyLLAQL7rgrxZhGVJQxCyPjzGLhTJwW7ZmZ2J1rjWKpX8TVhf0X2Wf7i2AEuDfRtgdkI3uIYQNB2xvLpS3uxSJibYIgB5SYBimWqNNYNLaPGdC+A4n9PfETIbDfl07gqgBdHteXZ9+eNWRsbzN9F1kRu5YrbQiyt2a8lyalPNi05JVMB60MPJ306/xs/532QztmyURegHJtWIf6lLfOp6q8wjtJC+xO6tsLH5LVX2uFjO0OLyG2E3N2xXs3gt0/eO/SW/5gveE+scEHwqYzGKOWc0PsFMi3iX3ZyqaT36qzIVRm61KNTb2gNX9ywOZh08SVKoVo7iAG8K7SScXFmKkJBksw="
+    aws.access_key_id = "ASIA4RJWHJFI4WHSFAUW"
+    aws.secret_access_key = "FV18TMCOaknKwa/4kXnNVaJRrEKZfIAX0zZ26kg/"
+    aws.session_token = "FwoGZXIvYXdzEFQaDAtHq8r+JrH60BDvsCLLAVDfXjANfkJjlCGFw1jblrJI8yNXq2ym1Z1WxCVOT4RczWEeBdJF5uFQGU7QzP2r0m0t/X/s2WFu/AoC6gXfAwpgI/wR5E/5Nze+z4wJZLvzhZcZpiFpiACFN4bGalzH1GzIzHIkFyUuu27jk4DrDPxvth+JiJQxEO2LievVnFsLnsKDOuEbja7YfIC7NkZKiYXm+UxLCMnXR4mMOu3JJ9p6nqztby453Hlnn2Q88VtC9PepBJviXeW/bf62sH+T2wx+hbFLTf5qDPE7KK+A1fsFMi3DLWXuA5Z0NA9D1NV9DWEn8w/8Lq19nDNd4f9yRT7C14AqjxNZAQ1PILR8nPg="
 
 
     # The region for Amazon Educate is fixed.
@@ -69,59 +69,20 @@ Vagrant.configure("2") do |config|
     # These are options specific to the webserver VM
     webserver.vm.hostname = "read-server"
     
-    # This type of port forwarding has been discussed elsewhere in
-    # labs, but recall that it means that our host computer can
-    # connect to IP address 127.0.0.1 port 8080, and that network
-    # request will reach our webserver VM's port 80.
-    webserver.vm.network "forwarded_port", guest: 80, host: 7080, host_ip: "127.0.0.1"
-    
-    # We set up a private network that our VMs will use to communicate
-    # with each other. Note that I have manually specified an IP
-    # address for our webserver VM to have on this internal network,
-    # too. There are restrictions on what IP addresses will work, but
-    # a form such as 192.168.2.x for x being 11, 12 and 13 (three VMs)
-    # is likely to work.
-    webserver.vm.network "private_network", ip: "192.168.2.11"
 
-    # This following line is only necessary in the CS Labs... but that
-    # may well be where markers mark your assignment.
-    webserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
-
-    # Now we have a section specifying the shell commands to provision
-    # the webserver VM. Note that the file test-website.conf is copied
-    # from this host to the VM through the shared folder mounted in
-    # the VM at /vagrant
-    webserver.vm.provision "shell", path:"readweb.sh"
+    webserver.vm.provision "shell",inline: <<-SHELL
+ apt-get update
+      apt-get install -y apache2 php libapache2-mod-php php-mysql
+      cp /vagrant/test-website.conf /etc/apache2/sites-available/
+      chmod 400 /vagrant
+      chmod 400 /vagrant/read-www
+      chmod 400 /vagrant/read-www/index.php
+      a2ensite test-website
+      a2dissite 000-default
+      service apache2 reload
+    SHELL
 
   end
-
-  # Here is the section for defining the database server, which I have
-  # named "dbserver".
-  config.vm.define "dbserver" do |dbserver|
-    dbserver.vm.hostname = "dbserver"
-    # Note that the IP address is different from that of the webserver
-    # above: it is important that no two VMs attempt to use the same
-    # IP address on the private_network.
-    dbserver.vm.network "private_network", ip: "192.168.2.12"
-    dbserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
-    
-    dbserver.vm.provision "shell", path:"server.sh"
-  end
-
-  config.vm.define "write-server" do |webserver|
-
-    webserver.vm.hostname = "write-server"
-
-    webserver.vm.network "forwarded_port", guest: 80, host: 7081, host_ip: "127.0.0.1"
-    
-    webserver.vm.network "private_network", ip: "192.168.2.13"
-
-    webserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
-
-    webserver.vm.provision "shell", path:"writeweb.sh"
-
-  end
-
 end
 
 #  LocalWords:  webserver xenial64
