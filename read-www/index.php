@@ -20,14 +20,14 @@
 
         <?php
           
-          $db_host   = '192.168.2.12';
-          $db_name   = 'timetabledb';
-          $db_user   = 'dbuser';
-          $db_passwd = '123456';
+          $RDS_host   = 'timetable.c7knw1zt4z9h.us-east-1.rds.amazonaws.com';
+          $RDS_name   = 'timetable';
+          $RDS_user   = 'vagrant';
+          $RDS_passwd = '12345678';
 
-          $pdo_dsn = "mysql:host=$db_host;dbname=$db_name";
+          $pdo_dsn = "mysql:host=$RDS_host;dbname=$RDS_name";
 
-          $pdo = new PDO($pdo_dsn, $db_user, $db_passwd);
+          $pdo = new PDO($pdo_dsn, $RDS_user, $RDS_passwd);
 
           $q = $pdo->query("SELECT * FROM timetable");
 
