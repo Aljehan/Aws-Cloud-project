@@ -34,6 +34,12 @@ Vagrant.configure("2") do |config|
 
     # Choose your Amazon EC2 instance type (t2.micro is cheap).
     aws.instance_type = "t2.micro"
+    #security group code for shh to access VM
+    aws.security_groups = ["sg-04327b222118afb69"]
+
+    #region and its subnet
+    aws.availability_zone = "us-east-1a"
+    aws.subnet_id = "subnet-9bb206c4"
 
   # this is a form of configuration not seen earlier in our use of
   # Vagrant: it defines a particular named VM, which is necessary when
