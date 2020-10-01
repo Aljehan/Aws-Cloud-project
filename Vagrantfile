@@ -9,6 +9,8 @@ Vagrant.configure("2") do |config|
   # The AWS provider does not actually need to use a Vagrant box file.
   config.vm.box = "dummy"
 
+  config.vm.provider :aws do |aws, override|
+
   # this is a form of configuration not seen earlier in our use of
   # Vagrant: it defines a particular named VM, which is necessary when
   # your Vagrantfile will start up multiple interconnected VMs. I have
