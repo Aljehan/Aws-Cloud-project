@@ -6,9 +6,8 @@
 # IP addresses for the VMs.
 
 Vagrant.configure("2") do |config|
-  # (We have used this box previously, so reusing it here should save a
-  # bit of time by using a cached copy.)
-  config.vm.box = "ubuntu/xenial64"
+  # The AWS provider does not actually need to use a Vagrant box file.
+  config.vm.box = "dummy"
 
   # this is a form of configuration not seen earlier in our use of
   # Vagrant: it defines a particular named VM, which is necessary when
