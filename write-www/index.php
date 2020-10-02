@@ -10,7 +10,7 @@
        <h1>Time Table</h1>
        <nav>
      <div id ="menu"><h2>Enter Class Details</h2></div>
-         <div id ="menu"><a href="http://192.168.2.11"><h2>Class time</h2></a></div>
+         <div id ="menu"><a href="http://ec2-34-230-23-9.compute-1.amazonaws.com"><h2>Class time</h2></a></div>
        </nav>
      </header>
 

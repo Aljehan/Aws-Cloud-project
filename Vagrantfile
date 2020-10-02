@@ -22,9 +22,9 @@ Vagrant.configure("2") do |config|
   config.vm.provider :aws do |aws, override|
 
     # security information from aws server
-    aws.access_key_id = "ASIA4RJWHJFI4WHSFAUW"
-    aws.secret_access_key = "FV18TMCOaknKwa/4kXnNVaJRrEKZfIAX0zZ26kg/"
-    aws.session_token = "FwoGZXIvYXdzEFQaDAtHq8r+JrH60BDvsCLLAVDfXjANfkJjlCGFw1jblrJI8yNXq2ym1Z1WxCVOT4RczWEeBdJF5uFQGU7QzP2r0m0t/X/s2WFu/AoC6gXfAwpgI/wR5E/5Nze+z4wJZLvzhZcZpiFpiACFN4bGalzH1GzIzHIkFyUuu27jk4DrDPxvth+JiJQxEO2LievVnFsLnsKDOuEbja7YfIC7NkZKiYXm+UxLCMnXR4mMOu3JJ9p6nqztby453Hlnn2Q88VtC9PepBJviXeW/bf62sH+T2wx+hbFLTf5qDPE7KK+A1fsFMi3DLWXuA5Z0NA9D1NV9DWEn8w/8Lq19nDNd4f9yRT7C14AqjxNZAQ1PILR8nPg="
+    aws.access_key_id = "ASIA4RJWHJFI5RGUWL7Z"
+    aws.secret_access_key = "tZcYiummXq0NdGx0TI13oLozcOl6amY1RkBDCN3q"
+    aws.session_token = "FwoGZXIvYXdzEG0aDFUHYksYMpU3h8L6bSLLAWEPT0tfizzUVxMgrJsyYbmdBPfz0jqAUwWlyx00bpNDRrHVV4JiDFNehuibDUir4APQvQR4Eqggct9Opn5sF1Z9j4Cp84GqVe+BDbJXuir9qm9ooL8AHoOTI2FiGVW1Rdj4VBJaWzyhYBtS4pUaT/aVs82Eb5ptIQMSMyDeFle+ULG1NqnXP23CeYsZ1RzD17KsHqGPKO5Ax4VpHtNcUiIy2v9dCABM4TSentKnEv3ED3ebDqfU7VHN3mSQaaZc3l4Uh9tbw2bjGIZQKKK12vsFMi3N/d3TOPu3XnWwtKY5JWl3A5brob+o4rR94NbljZvUIGp9qzk/engZOKO3UEQ="
 
 
     # The region for Amazon Educate is fixed.
@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
     # Choose your Amazon EC2 instance type (t2.micro is cheap).
     aws.instance_type = "t2.micro"
     #security group code for shh to access VM
-    aws.security_groups = ["sg-04327b222118afb69"]
+    aws.security_groups = ["sg-04327b222118afb69", "sg-8be61db5"]
 
     #region and its subnet
     aws.availability_zone = "us-east-1a"
@@ -74,13 +74,15 @@ Vagrant.configure("2") do |config|
  apt-get update
       apt-get install -y apache2 php libapache2-mod-php php-mysql
       cp /vagrant/test-website.conf /etc/apache2/sites-available/
-      chmod 400 /vagrant
-      chmod 400 /vagrant/read-www
-      chmod 400 /vagrant/read-www/index.php
+      cp /vagrant/read-www/index.php /var/www/html/
       a2ensite test-website
       a2dissite 000-default
       service apache2 reload
+      sudo rm /var/www/html/index.html
+sudo apt-get install mysql-server
+      
     SHELL
+end
 
     config.vm.define "write-server" do |webserver|
 
@@ -90,12 +92,12 @@ Vagrant.configure("2") do |config|
  apt-get update
       apt-get install -y apache2 php libapache2-mod-php php-mysql
       cp /vagrant/test-website2.conf /etc/apache2/sites-available/
-      chmod 400 /vagrant
-      chmod 400 /vagrant/write-www
-      chmod 400 /vagrant/write-www/index.php
+      cp /vagrant/write-www/index.php /var/www/html/
       a2ensite test-website2
       a2dissite 000-default
       service apache2 reload
+      sudo rm /var/www/html/index.html
+sudo apt-get install mysql-server
     SHELL
 
   end
@@ -106,3 +108,5 @@ Vagrant.configure("2") do |config|
    SHELL
 
 end
+
+

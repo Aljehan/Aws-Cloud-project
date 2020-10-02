@@ -9,7 +9,7 @@
     <header>
       <h1>Time Table</h1>
       <nav>
-    <div id ="menu"><a href="http://192.168.2.13"><h2>Enter Details</h2></a></div>
+    <div id ="menu"><a href="http://ec2-35-153-70-117.compute-1.amazonaws.com"><h2>Enter Details</h2></a></div>
     <div id ="menu"><h2>Time table</h2></div>
       </nav>
     </header>
