@@ -34,13 +34,13 @@
 if(isset($_POST['submit'])){
     ini_set('display_errors', true);
     error_reporting(E_ALL);
-    $db_host = '192.168.2.12';
-    $db_name = 'timetabledb';
-    $db_user = 'dbuser';
-    $db_passwd = '123456';
-    $pdo_dsn = "mysql:host=$db_host;dbname=$db_name";
+    $RDS_host   = 'timetable.c7knw1zt4z9h.us-east-1.rds.amazonaws.com';
+    $RDS_name   = 'timetable';
+    $RDS_user   = 'vagrant';
+    $RDS_passwd = '12345678';
+    $pdo_dsn = "mysql:host=$RDS_host;dbname=$RDS_name";
     try{
-        $pdo = new PDO($pdo_dsn, $db_user, $db_passwd);
+        $pdo = new PDO($pdo_dsn, $RDS_user, $RDS_passwd);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sqlquery = "INSERT INTO timetable (code, day, time)
 VALUES ('".$_POST["code"]."','".$_POST["day"]."','".$_POST["time"]."')";
